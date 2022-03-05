@@ -1,4 +1,4 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   // const win = window
   const doc = document.documentElement
 
@@ -62,10 +62,17 @@
       targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
       duration: anime.random(600, 800),
       delay: anime.random(600, 800),
-      rotate: [ anime.random(-360, 360), function (el) { return el.getAttribute('data-rotation') } ],
+      rotate: [anime.random(-360, 360), function (el) { return el.getAttribute('data-rotation') }],
       scale: [0.7, 1],
       opacity: [0, 1],
       easing: 'easeInOutExpo'
     })
   }
-}())
+
+  window.scrollSmoothlyTo = function scrollSmoothlyTo(target) {
+    var target = document.getElementById(target);
+    target.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+})
