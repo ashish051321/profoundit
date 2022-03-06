@@ -69,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
+  fetch('https://raw.githubusercontent.com/ashish051321/profoundit/master/openPositions.json')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
   window.scrollSmoothlyTo = function scrollSmoothlyTo(target) {
     var target = document.getElementById(target);
     target.scrollIntoView({
