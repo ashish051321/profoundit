@@ -1,3 +1,2 @@
 Website for Profound IT Solutions.
-Deep Narayan Thakur
-Ashish Mishra
+https://www.profounditllc.com
