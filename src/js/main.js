@@ -69,9 +69,20 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
+  let openPositions = null;
+
   fetch('https://raw.githubusercontent.com/ashish051321/profoundit/master/openPositions.json')
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => {
+      openPositions = data;
+      console.log('Fetched open positions from github repo', openPositions);
+      $("#vacancies").empty();
+      openPositions.forEach(jobObject => {
+        $("#vacancies").append('<a class="button" style="margin: 10px !important;"  data-toggle="modal" data-target="#jobModal" data-jobid="' + jobObject.jobTitle +
+        '">'+jobObject.jobTitle + 
+        '</a>');
+      });
+    });
 
   window.scrollSmoothlyTo = function scrollSmoothlyTo(target) {
     var target = document.getElementById(target);
@@ -79,4 +90,17 @@ document.addEventListener('DOMContentLoaded', function () {
       behavior: 'smooth'
     });
   }
-})
+
+  $('#jobModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var jobId = button.data('jobid') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this);
+    var jobObject = openPositions.filter(item => item.jobTitle == jobId)[0];
+    modal.find('#modal-title').text(jobObject.jobTitle);
+    modal.find('#modal-body').text(jobObject.jobDescription);
+    modal.find('#modalApplyButton').attr('href',"mailto:careers@profounditllc.com?subject=Application for "+jobObject.jobTitle);
+  });
+
+});
