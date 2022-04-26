@@ -91,6 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // $("#jobModal").on("hidden.bs.modal", function () {
+  //   modal.find('#jobDescription').empty();
+  //   modal.find('#jobResponsibilitiesList').empty();
+  //   modal.find('#jobDescription').empty();
+  // });
+
   $('#jobModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var jobId = button.data('jobid') // Extract info from data-* attributes
@@ -99,21 +105,30 @@ document.addEventListener('DOMContentLoaded', function () {
     var modal = $(this);
     var jobObject = openPositions.filter(item => item.jobTitle == jobId)[0];
     modal.find('#modal-title').text(jobObject.jobTitle);
-    modal.find('#jobDescription').append("<p>" + jobObject.jobDescription + "</p>");
-    
+    var jobDescRef = modal.find('#jobDescription');
+    jobDescRef.empty();
+    jobDescRef.append("<div class='font-weight-bolder letter-spacing-1'>Job Description</div>");
+    jobDescRef.append("<p>" + jobObject.jobDescription + "</p>");
+
     if (jobObject.jobResponsibilities) {
-      modal.find('#jobResponsibilities').append("<ul id='jobResponsibilitiesList'> </ul>");
+      var jobRespRef = modal.find('#jobResponsibilities');
+      jobRespRef.empty();
+      jobRespRef.append("<div class='font-weight-bolder letter-spacing-1'>Job Responsibilities</div>");
+      jobRespRef.append("<ul id='jobResponsibilitiesList'> </ul>");
       var listRef = modal.find('#jobResponsibilitiesList');
       jobObject.jobResponsibilities.forEach(item => { listRef.append("<li>" + item + "</li>"); });
-    }else{
+    } else {
       modal.find('#jobResponsibilities').empty();
     }
 
     if (jobObject.jobRequirements) {
-      modal.find('#jobRequirements').append("<ul id='jobRequirementsList'> </ul>");
+      var jobReqRef = modal.find('#jobRequirements');
+      jobReqRef.empty();
+      jobReqRef.append("<div class='font-weight-bolder letter-spacing-1'>Candidate Qualifications</div>");
+      jobReqRef.append("<ul id='jobRequirementsList'> </ul>");
       var reqListRef = modal.find('#jobRequirementsList');
       jobObject.jobRequirements.forEach(item => { reqListRef.append("<li>" + item + "</li>"); });
-    }else{
+    } else {
       modal.find('#jobRequirements').empty();
     }
 
