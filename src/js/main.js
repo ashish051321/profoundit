@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
       $("#vacancies").empty();
       openPositions.forEach(jobObject => {
         $("#vacancies").append('<a class="button" style="margin: 10px !important;"  data-toggle="modal" data-target="#jobModal" data-jobid="' + jobObject.jobTitle +
-        '">'+jobObject.jobTitle + 
-        '</a>');
+          '">' + jobObject.jobTitle +
+          '</a>');
       });
     });
 
@@ -99,8 +99,25 @@ document.addEventListener('DOMContentLoaded', function () {
     var modal = $(this);
     var jobObject = openPositions.filter(item => item.jobTitle == jobId)[0];
     modal.find('#modal-title').text(jobObject.jobTitle);
-    modal.find('#modal-body').text(jobObject.jobDescription);
-    modal.find('#modalApplyButton').attr('href',"mailto:careers@profounditllc.com?subject=Application for "+jobObject.jobTitle);
+    modal.find('#jobDescription').append("<p>" + jobObject.jobDescription + "</p>");
+    
+    if (jobObject.jobResponsibilities) {
+      modal.find('#jobResponsibilities').append("<ul id='jobResponsibilitiesList'> </ul>");
+      var listRef = modal.find('#jobResponsibilitiesList');
+      jobObject.jobResponsibilities.forEach(item => { listRef.append("<li>" + item + "</li>"); });
+    }else{
+      modal.find('#jobResponsibilities').empty();
+    }
+
+    if (jobObject.jobRequirements) {
+      modal.find('#jobRequirements').append("<ul id='jobRequirementsList'> </ul>");
+      var reqListRef = modal.find('#jobRequirementsList');
+      jobObject.jobRequirements.forEach(item => { reqListRef.append("<li>" + item + "</li>"); });
+    }else{
+      modal.find('#jobRequirements').empty();
+    }
+
+    modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
   });
 
 });
