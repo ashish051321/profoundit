@@ -132,7 +132,15 @@ document.addEventListener('DOMContentLoaded', function () {
       modal.find('#jobRequirements').empty();
     }
 
-    modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
+    // modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
+  });
+
+  $("#modalApplyButton").on("click", function () {
+    $("#jobModal").modal('toggle');
+    setTimeout(function () {
+      $("#jobApplyModal").modal('toggle');
+    }, 900);
+
   });
 
 });
