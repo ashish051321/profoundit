@@ -16,7 +16,25 @@
         ]
     },
     {
-        "jobTitle": "Manual Tester",
+        "jobTitle": "Java Developer",
+        "jobDescription": "We are looking for a solid and passionate software engineer to join our team who will perform backend service development. In this role, you will be responsible for designing, building, optimizing, and deploying core services for the micro-service platform. In addition, you will have a unique opportunity to not only immerse in a full software development life cycle but also build an exciting distributed web-based system.",
+        "jobResponsibilities": [
+            "Work closely with PM and dev teams to translate high-level roadmap vision into feasible feature specifications and deliverables.",
+            "Be responsible for design and deliver customer-facing features including proof-of-concept prototypes.",
+            "Analyze and optimize service performance, security.",
+            "Triage critical customer issues and provide technical guidance for customer engagement."
+        ],
+        "jobRequirements": [
+            "BS/MS (Computer Science or related major preferred).",
+            "Software development experience, be proficient in Java language, including JVM, class loading mechanism, multithreading concurrency, IO, network, etc.",
+            "Familiar with HTTP, Websocket protocol and servlet specification, master Java open source frameworks such as Spring Frameworks (Spring Cloud, Spring Boot, Sprig), etc.",
+            "Strong design and coding skills, understanding object-oriented design, familiar with object-oriented design principles, master design patterns, and application scenarios",
+            "Experienced in distributed web-based systems, application security, and familiar with secure development practices",
+            "Willingness to learn, self starter, and think creatively."
+        ]
+    },
+    {
+        "jobTitle": "Functional Tester / Test Engineer",
         "jobDescription": "If you have passion for fixing bugs in code and programming, you may be cut out for career in manual testing. As a Software Tester, you will have a major role to play in the quality assurance stage of software development. You will carry out manual tests to ensure the software created meets the requirements. This involves the analysis of software to prevent issues and fixing bugs before the product is dispatched to users. As working with code is part of the role, software testers are expected to be familiar with various coding languages.",
         "jobResponsibilities": [
             "Analyzing the requirements from clients",
