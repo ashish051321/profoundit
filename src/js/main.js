@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this);
     var jobObject = openPositions.filter(item => item.jobTitle == jobId)[0];
-    modal.find('#modal-title').text(jobObject.jobTitle);
+    modal.find('#job-modal-title').text(jobObject.jobTitle);
     var jobDescRef = modal.find('#jobDescription');
     jobDescRef.empty();
     jobDescRef.append("<div class='font-weight-bolder letter-spacing-1'>Job Description</div>");
@@ -134,13 +134,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
   });
+  var globalJobTitle = '';
 
   $("#modalApplyButton").on("click", function () {
+    globalJobTitle = $('#job-modal-title').html();
+    
     $("#jobModal").modal('toggle');
     setTimeout(function () {
       $("#jobApplyModal").modal('toggle');
+       $('#job-apply-modal-title').html(globalJobTitle);
     }, 900);
 
   });
 
-});
+  $("#modalJobSubmitButton").on("click", function (e) {
+    const formObject = {};
+    const errorMessage = "Please complete all the fields in this form including resume upload."
+
+    const fieldIds = ['firstName', 'lastName', 'city', 'state', 'zip', 'fileAttachment', 'tAndC']
+    fieldIds.forEach(function (fieldId) {
+      document.getElementById("jobApplyForm").elements[fieldId].value
+      formObject[fieldId] = document.getElementById("jobApplyForm").elements[fieldId].value;
+
+      if (fieldId == 'fileAttachment') {
+        formObject[fieldId] = 'File Attached in mail';
+      }
+      if (fieldId == 'tAndC') {
+        formObject[fieldId] = document.getElementById("jobApplyForm").elements[fieldId].checked;
+      }
+
+    })
+
+    console.log(formObject);
+    triggerEmailForJobApply({
+      "to": "ashish.25jl@gmail.com",
+      "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + $('#job-apply-modal-title').html(),
+      "messageText": JSON.stringify({ formObject })
+    }, document.getElementById("jobApplyForm").elements['fileAttachment'].files[0]);
+
+    $("#jobApplyModal").modal('toggle');
+
+  });
+
+  function triggerEmailForJobApply(jsonInput, file) {
+
+    var requestData = new FormData();
+    requestData.append('mailRequest', JSON.stringify(jsonInput));
+    requestData.append('file', file);
+    // POST request using fetch()
+    fetch("http://34.229.165.193/sendMailWithAttachments", {
+
+      // Adding method type
+      method: "POST",
+
+      // Adding body or contents to send
+      body: requestData,
+
+      // Adding headers to the request
+      // headers: {
+      //   "Content-type": "multipart/form-data; charset=UTF-8"
+      // }
+    })
+
+      // Converting to JSON
+      .then(response => response.json())
+
+      // Displaying results to console
+      .then(json => console.log(json));
+  }
+
+});//closing DOMContentLoaded
