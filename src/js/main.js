@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
   // const win = window
   const doc = document.documentElement
 
@@ -138,11 +139,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   $("#modalApplyButton").on("click", function () {
     globalJobTitle = $('#job-modal-title').html();
-    
+
     $("#jobModal").modal('toggle');
     setTimeout(function () {
       $("#jobApplyModal").modal('toggle');
-       $('#job-apply-modal-title').html(globalJobTitle);
+      $('#job-apply-modal-title').html(globalJobTitle);
     }, 900);
 
   });
@@ -177,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function triggerEmailForJobApply(jsonInput, file) {
-
+    showSpinner();
     var requestData = new FormData();
     requestData.append('mailRequest', JSON.stringify(jsonInput));
     requestData.append('file', file);
@@ -196,11 +197,27 @@ document.addEventListener('DOMContentLoaded', function () {
       // }
     })
 
-      // Converting to JSON
-      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        hideSpinner();
+        showToast('#successToast');
+      }).catch(err => {
+        hideSpinner();
+        showToast('#failureToast');
+      });
+  }
 
-      // Displaying results to console
-      .then(json => console.log(json));
+  function showToast(type) {
+    $(type).css('visibility', 'visible');
+    $(type).fadeIn(200).delay(3000).fadeOut(400);
+  }
+
+  function showSpinner() {
+    $('#spinner').css('visibility', 'visible');
+  }
+
+  function hideSpinner() {
+    $('#spinner').css('visibility', 'hidden');
   }
 
 });//closing DOMContentLoaded
