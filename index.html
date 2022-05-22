@@ -35,15 +35,15 @@
                 <div class="modal-dialog modal-dialog-centered mvh-100" role="document">
                     <div class="modal-content bg-dark">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title">
-                                <!-- comes from backend -->
-                            </h5>
+                            <div class="modal-title">
+                                <h5 id="job-modal-title"></h5>
+                                <p><span>Job Id: </span><span id="jobId"></span></p>
+                            </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body bg-dark mvh-60 overflow-y-scroll" id="modal-body">
-                            <!-- comes from backend -->
+                        <div class="modal-body bg-dark mvh-60 overflow-y-scroll" id="job-modal-body">
                             <div class="mb-1" id="jobDescription">
                                 <div class="font-weight-bolder letter-spacing-1">Job Description</div>
                             </div>
@@ -56,7 +56,8 @@
                         </div>
                         <div class="modal-footer bg-dark">
                             <a class="button button" data-dismiss="modal">Close</a>
-                            <a id="modalApplyButton" class="button button-primary" href="">Apply</a>
+                            <a id="modalApplyButton" class="button button-primary" data-toggle="collapse"
+                                data-target="#collapseExample" target="_self" href="">Apply</a>
                         </div>
                     </div>
                 </div>
@@ -67,29 +68,39 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content bg-dark">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="job-apply-modal-title">
-                                <!-- comes from backend -->Apply for - Java Developer
-                            </h5>
+                            <div class="modal-title">
+                                <h5 id="job-apply-modal-title"></h5>
+                                <p><span>Job Id: </span><span id="job-apply-jobId"></span></p>
+                            </div>
+
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body bg-dark" id="job-apply-modal-body">
                             <!-- Job application Form -->
-                            <form class="needs-validation" novalidate>
+                            <form class="needs-validation" id="jobApplyForm" onsubmit="return false">
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="validationCustom01">First name</label>
-                                        <input type="text" class="form-control" id="validationCustom01"
-                                            placeholder="First name" value="Mark" required>
+                                        <label class="required" for="firstName">First name</label>
+                                        <input type="text" class="form-control" name="firstName " id="firstName"
+                                            placeholder="First name" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="validationCustom02">Last name</label>
-                                        <input type="text" class="form-control" id="validationCustom02"
-                                            placeholder="Last name" value="Otto" required>
+                                        <label class="required" for="lastName">Last name</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName"
+                                            placeholder="Last name" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label class="required" for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            placeholder="Your Email Address" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -97,35 +108,37 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="validationCustom03">City</label>
-                                        <input type="text" class="form-control" id="validationCustom03"
-                                            placeholder="City" required>
+                                        <label class="required" for="city">City</label>
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="City"
+                                            required>
                                         <div class="invalid-feedback">
                                             Please provide a valid city.
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="validationCustom04">State</label>
-                                        <input type="text" class="form-control" id="validationCustom04"
+                                        <label class="required" for="state">State</label>
+                                        <input type="text" class="form-control" id="state" name="state"
                                             placeholder="State" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationCustom05">Zip</label>
-                                        <input type="text" class="form-control" id="validationCustom05"
-                                            placeholder="Zip" required>
+                                        <label class="required" for="zip">Zip</label>
+                                        <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip"
+                                            required>
                                         <div class="invalid-feedback">
                                             Please provide a valid zip.
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationCustom06">Upload Resume</label>
+                                        <label class="required" for="fileAttachment">Upload Resume</label>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div> 
+                                            <input type="file" class="custom-file-input" id="fileAttachment"
+                                                name="fileAttachment" accept=".doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,application/pdf" required>
+                                            <label id="chosen-file-name" class="custom-file-label"
+                                                for="fileAttachment">Choose file</label>
+                                        </div>
                                         <div class="invalid-feedback">
                                             Please upload resume.
                                         </div>
@@ -134,9 +147,8 @@
 
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck"
-                                            required>
-                                        <label class="form-check-label text-underline" for="invalidCheck">
+                                        <input class="form-check-input" type="checkbox" value="" id="tAndC" required>
+                                        <label class="form-check-label text-underline" for="tAndC">
                                             Agree to terms and conditions
                                         </label>
                                         <div class="invalid-feedback">
@@ -148,8 +160,9 @@
                         </div>
                         <div class="modal-footer bg-dark">
                             <a class="button button" data-dismiss="modal">Close</a>
-                            <a id="job-apply-modalApplyButton" class="button button-primary" data-toggle="collapse"
-                                data-target="#collapseExample" target="_self" href="">Submit</a>
+                            <button id="modalJobSubmitButton" class="button button-primary" data-toggle="collapse"
+                                data-target="#collapseExample" type="submit" form="jobApplyForm" target="_self"
+                                href="">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -424,12 +437,31 @@
         </div>
     </footer>
     </div>
+    <div id="spinner"
+        style="visibility:hidden; position:fixed; z-index:10; top:0px;left:0px; height:100vh; width:100vw; background-color: rgba(0,0,0,0.7);"
+        class="d-flex justify-content-center align-items-center">
+        <div class="spinner-border"></div>
+    </div>
+
+    <div id="successToast" class="alert alert-success" role="alert"
+        style="position:fixed; top:10px; right:10px; opacity:1; visibility:hidden;">
+        Done!
+    </div>
+
+    <div id="failureToast" class="alert alert-danger" role="alert"
+        style="position:fixed; top:10px; right:10px; opacity:1; visibility:hidden;">
+        Something went wrong ! Please try later.
+    </div>
+
+
     <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
