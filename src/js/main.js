@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(formObject);
     triggerEmailForJobApply({
       "to": "ashish.25jl@gmail.com",
-      "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + $('#job-apply-modal-title').html(),
+      "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + globalJobTitle + "( "+globalJobId+" )",
       "messageText": JSON.stringify({ formObject })
     }, document.getElementById("jobApplyForm").elements['fileAttachment'].files[0]);
 
