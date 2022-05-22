@@ -2,9 +2,9 @@
 # Variables, functions and mixins
 --------------------------------------------------------------*/
 @import "abstracts/variables",
-        "abstracts/functions",
-        "abstracts/mixins",
-        'abstracts/include-media';
+"abstracts/functions",
+"abstracts/mixins",
+'abstracts/include-media';
 
 /*--------------------------------------------------------------
 1.0 Normalize
@@ -73,44 +73,49 @@
 --------------------------------------------------------------*/
 @import "layout/footer";
 
-.map-responsive{
+.map-responsive {
 
-    overflow:hidden;
+    overflow: hidden;
 
-    padding-bottom:56.25%;
+    padding-bottom: 56.25%;
 
-    position:relative;
+    position: relative;
 
-    height:0;
-
-}
-
-.map-responsive iframe{
-
-    left:0;
-
-    top:0;
-
-    height:100%;
-
-    width:100%;
-
-    position:absolute;
+    height: 0;
 
 }
 
-.letter-spacing-1{
-    letter-spacing : 2px;
+.map-responsive iframe {
+
+    left: 0;
+
+    top: 0;
+
+    height: 100%;
+
+    width: 100%;
+
+    position: absolute;
+
 }
 
-.overflow-y-scroll{
+.letter-spacing-1 {
+    letter-spacing: 2px;
+}
+
+.overflow-y-scroll {
     overflow-y: auto;
 }
 
-.mvh-60{
+.mvh-60 {
     max-height: 60vh;
 }
 
-.mvh-100{
-    max-height:100vh
+.mvh-100 {
+    max-height: 100vh
+}
+
+.required:after {
+    content: " *";
+    color: rgba(255,0,0,0.7);
 }

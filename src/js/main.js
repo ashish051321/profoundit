@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  const maxFileSizeinMB = 5;
   // const win = window
   const doc = document.documentElement
 
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
+  //global variable
   let openPositions = null;
 
   fetch('https://raw.githubusercontent.com/ashish051321/profoundit/master/openPositions.json')
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var modal = $(this);
     var jobObject = openPositions.filter(item => item.jobTitle == jobId)[0];
     modal.find('#job-modal-title').text(jobObject.jobTitle);
+    modal.find('#jobId').text(jobObject.jobId);
     var jobDescRef = modal.find('#jobDescription');
     jobDescRef.empty();
     jobDescRef.append("<div class='font-weight-bolder letter-spacing-1'>Job Description</div>");
@@ -136,23 +139,43 @@ document.addEventListener('DOMContentLoaded', function () {
     // modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
   });
   var globalJobTitle = '';
-
+  var globalJobId = '';
   $("#modalApplyButton").on("click", function () {
     globalJobTitle = $('#job-modal-title').html();
+    globalJobId = $('#jobId').html();
 
     $("#jobModal").modal('toggle');
     setTimeout(function () {
       $("#jobApplyModal").modal('toggle');
       $('#job-apply-modal-title').html(globalJobTitle);
+      $('#job-apply-jobId').html(globalJobId);
     }, 900);
 
   });
 
   $("#modalJobSubmitButton").on("click", function (e) {
-    const formObject = {};
+
+    if (!document.querySelector("#jobApplyForm").checkValidity()) {
+      console.log("Form is invalid");
+      return;
+    } else {
+      //Form is valid but check if fileSize is more than limit
+      if (!isFileSizeWithinLimits(document.getElementById("jobApplyForm").elements['fileAttachment'].files[0])) {
+        //clear the file
+        $("#fileAttachment").val('');
+        document.querySelector("#chosen-file-name").textContent = "File size should be <= "+maxFileSizeinMB+" MB";
+        return;
+      }
+      console.log("Form is valid and we will proceed to submit the application!")
+    }
+    const formObject = {
+      jobId: globalJobId.trim(),
+      jobTitle: globalJobTitle.trim(),
+      dateTime: new Date().toGMTString()
+    };
     const errorMessage = "Please complete all the fields in this form including resume upload."
 
-    const fieldIds = ['firstName', 'lastName', 'city', 'state', 'zip', 'fileAttachment', 'tAndC']
+    const fieldIds = ['firstName', 'lastName', 'email', 'city', 'state', 'zip', 'fileAttachment', 'tAndC']
     fieldIds.forEach(function (fieldId) {
       document.getElementById("jobApplyForm").elements[fieldId].value
       formObject[fieldId] = document.getElementById("jobApplyForm").elements[fieldId].value;
@@ -176,6 +199,12 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#jobApplyModal").modal('toggle');
 
   });
+
+  function isFileSizeWithinLimits(inputFile) {
+    const filesize = inputFile.size / 1024 / 1024;
+    console.log('This file size is: ' + filesize + "MB")
+    return (filesize <= maxFileSizeinMB);
+  }
 
   function triggerEmailForJobApply(jsonInput, file) {
     showSpinner();
@@ -219,5 +248,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function hideSpinner() {
     $('#spinner').css('visibility', 'hidden');
   }
+
+  //Displaying fileName for the resume the user selects for Job application.
+  var input = document.querySelector("#fileAttachment").addEventListener('change', function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    document.querySelector("#chosen-file-name").textContent = fileName;
+  });
+
 
 });//closing DOMContentLoaded

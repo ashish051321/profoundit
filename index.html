@@ -35,14 +35,15 @@
                 <div class="modal-dialog modal-dialog-centered mvh-100" role="document">
                     <div class="modal-content bg-dark">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="job-modal-title">
-                            </h5>
+                            <div class="modal-title">
+                                <h5 id="job-modal-title"></h5>
+                                <p><span>Job Id: </span><span id="jobId"></span></p>
+                            </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body bg-dark mvh-60 overflow-y-scroll" id="job-modal-body">
-                            <!-- comes from backend -->
                             <div class="mb-1" id="jobDescription">
                                 <div class="font-weight-bolder letter-spacing-1">Job Description</div>
                             </div>
@@ -67,19 +68,21 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content bg-dark">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="job-apply-modal-title">
-                                Apply for - Java Developer
-                            </h5>
+                            <div class="modal-title">
+                                <h5 id="job-apply-modal-title"></h5>
+                                <p><span>Job Id: </span><span id="job-apply-jobId"></span></p>
+                            </div>
+
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body bg-dark" id="job-apply-modal-body">
                             <!-- Job application Form -->
-                            <form class="needs-validation" id="jobApplyForm" novalidate>
+                            <form class="needs-validation" id="jobApplyForm" onsubmit="return false">
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="firstName">First name</label>
+                                        <label class="required" for="firstName">First name</label>
                                         <input type="text" class="form-control" name="firstName " id="firstName"
                                             placeholder="First name" required>
                                         <div class="valid-feedback">
@@ -87,9 +90,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="lastName">Last name</label>
+                                        <label class="required" for="lastName">Last name</label>
                                         <input type="text" class="form-control" id="lastName" name="lastName"
                                             placeholder="Last name" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label class="required" for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            placeholder="Your Email Address" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -97,7 +108,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="city">City</label>
+                                        <label class="required" for="city">City</label>
                                         <input type="text" class="form-control" id="city" name="city" placeholder="City"
                                             required>
                                         <div class="invalid-feedback">
@@ -105,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="state">State</label>
+                                        <label class="required" for="state">State</label>
                                         <input type="text" class="form-control" id="state" name="state"
                                             placeholder="State" required>
                                         <div class="invalid-feedback">
@@ -113,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="zip">Zip</label>
+                                        <label class="required" for="zip">Zip</label>
                                         <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip"
                                             required>
                                         <div class="invalid-feedback">
@@ -121,11 +132,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="fileAttachment">Upload Resume</label>
+                                        <label class="required" for="fileAttachment">Upload Resume</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="fileAttachment"
-                                                name="fileAttachment">
-                                            <label class="custom-file-label" for="fileAttachment">Choose file</label>
+                                                name="fileAttachment" accept=".doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,application/pdf" required>
+                                            <label id="chosen-file-name" class="custom-file-label"
+                                                for="fileAttachment">Choose file</label>
                                         </div>
                                         <div class="invalid-feedback">
                                             Please upload resume.
@@ -148,8 +160,9 @@
                         </div>
                         <div class="modal-footer bg-dark">
                             <a class="button button" data-dismiss="modal">Close</a>
-                            <a id="modalJobSubmitButton" class="button button-primary" data-toggle="collapse"
-                                data-target="#collapseExample" form="jobApplyForm" target="_self" href="">Submit</a>
+                            <button id="modalJobSubmitButton" class="button button-primary" data-toggle="collapse"
+                                data-target="#collapseExample" type="submit" form="jobApplyForm" target="_self"
+                                href="">Submit</button>
                         </div>
                     </div>
                 </div>
