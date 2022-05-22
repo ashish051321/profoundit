@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-6 mb-3">
+                                    <!-- <div class="col-md-6 mb-3">
                                         <label class="required" for="city">City</label>
                                         <input type="text" class="form-control" id="city" name="city" placeholder="City"
                                             required>
@@ -130,12 +130,14 @@
                                         <div class="invalid-feedback">
                                             Please provide a valid zip.
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-12 mb-3">
                                         <label class="required" for="fileAttachment">Upload Resume</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="fileAttachment"
-                                                name="fileAttachment" accept=".doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,application/pdf" required>
+                                                name="fileAttachment"
+                                                accept=".doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,application/pdf"
+                                                required>
                                             <label id="chosen-file-name" class="custom-file-label"
                                                 for="fileAttachment">Choose file</label>
                                         </div>
@@ -149,7 +151,10 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="tAndC" required>
                                         <label class="form-check-label text-underline" for="tAndC">
-                                            Agree to terms and conditions
+                                            Agree to
+                                            <a href="https://www.termsandconditionsgenerator.com/live.php?token=Y0nMoaby3FwTMFqBwapkqUIeLJiAdYcc"
+                                                target="_blank">terms and conditions</a>
+
                                         </label>
                                         <div class="invalid-feedback">
                                             You must agree before submitting.

@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   $("#modalJobSubmitButton").on("click", function (e) {
-
     if (!document.querySelector("#jobApplyForm").checkValidity()) {
       console.log("Form is invalid");
       return;
@@ -175,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     const errorMessage = "Please complete all the fields in this form including resume upload."
 
-    const fieldIds = ['firstName', 'lastName', 'email', 'city', 'state', 'zip', 'fileAttachment', 'tAndC']
+    const fieldIds = ['firstName', 'lastName','fileAttachment', 'tAndC']
     fieldIds.forEach(function (fieldId) {
       document.getElementById("jobApplyForm").elements[fieldId].value
       formObject[fieldId] = document.getElementById("jobApplyForm").elements[fieldId].value;
@@ -229,14 +228,20 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(json => {
         console.log(json);
         hideSpinner();
-        showToast('#successToast');
+        showToast('#successToast','Application submitted !');
       }).catch(err => {
+        if(!window.navigator.onLine){
+          showToast('#failureToast','No internet connection !');  
+        }
         hideSpinner();
         showToast('#failureToast');
       });
   }
 
-  function showToast(type) {
+  function showToast(type,message) {
+    if(message){
+      $(type).html(message);
+    }
     $(type).css('visibility', 'visible');
     $(type).fadeIn(200).delay(3000).fadeOut(400);
   }
