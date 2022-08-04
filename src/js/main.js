@@ -138,18 +138,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
   });
+
+
   var globalJobTitle = '';
   var globalJobId = '';
   $("#modalApplyButton").on("click", function () {
     globalJobTitle = $('#job-modal-title').html();
     globalJobId = $('#jobId').html();
-
+    //Checking if backend is running or not. If not, we will trigger system mail.
     $("#jobModal").modal('toggle');
-    setTimeout(function () {
-      $("#jobApplyModal").modal('toggle');
-      $('#job-apply-modal-title').html(globalJobTitle);
-      $('#job-apply-jobId').html(globalJobId);
-    }, 900);
+    showSpinner();
+    fetch("https://backend.profounditllc.com/actuator/health", {
+      method: "GET"
+    })
+      .then(json => {
+        console.log('backend is working fine');
+        hideSpinner();
+        setTimeout(function () {
+          $("#jobApplyModal").modal('toggle');
+          $('#job-apply-modal-title').html(globalJobTitle);
+          $('#job-apply-jobId').html(globalJobId);
+        }, 900);
+      }).catch(err => {
+        console.log('backend is not reachable or not working fine');
+        if (!window.navigator.onLine) {
+          showToast('#failureToast', 'No internet connection !');
+        }
+        hideSpinner();
+        showToast('#failureToast', 'Backend Server is down. Falling back to Native Mail Client.');
+        setTimeout(function () {
+          const mailSubject = 'Apply for ' + globalJobId + ': ' + globalJobTitle;
+          window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
+        }, 3000);
+      });
+
 
   });
 
@@ -162,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!isFileSizeWithinLimits(document.getElementById("jobApplyForm").elements['fileAttachment'].files[0])) {
         //clear the file
         $("#fileAttachment").val('');
-        document.querySelector("#chosen-file-name").textContent = "File size should be <= "+maxFileSizeinMB+" MB";
+        document.querySelector("#chosen-file-name").textContent = "File size should be <= " + maxFileSizeinMB + " MB";
         return;
       }
       console.log("Form is valid and we will proceed to submit the application!")
@@ -174,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     const errorMessage = "Please complete all the fields in this form including resume upload."
 
-    const fieldIds = ['firstName', 'lastName','fileAttachment', 'tAndC']
+    const fieldIds = ['firstName', 'lastName', 'fileAttachment', 'tAndC']
     fieldIds.forEach(function (fieldId) {
       document.getElementById("jobApplyForm").elements[fieldId].value
       formObject[fieldId] = document.getElementById("jobApplyForm").elements[fieldId].value;
@@ -191,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(formObject);
     triggerEmailForJobApply({
       "to": "ashish.25jl@gmail.com",
-      "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + globalJobTitle + "( "+globalJobId+" )",
+      "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + globalJobTitle + "( " + globalJobId + " )",
       "messageText": JSON.stringify({ formObject })
     }, document.getElementById("jobApplyForm").elements['fileAttachment'].files[0]);
 
@@ -228,18 +250,18 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(json => {
         console.log(json);
         hideSpinner();
-        showToast('#successToast','Application submitted !');
+        showToast('#successToast', 'Application submitted !');
       }).catch(err => {
-        if(!window.navigator.onLine){
-          showToast('#failureToast','No internet connection !');  
+        if (!window.navigator.onLine) {
+          showToast('#failureToast', 'No internet connection !');
         }
         hideSpinner();
         showToast('#failureToast');
       });
   }
 
-  function showToast(type,message) {
-    if(message){
+  function showToast(type, message) {
+    if (message) {
       $(type).html(message);
     }
     $(type).css('visibility', 'visible');
