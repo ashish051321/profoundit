@@ -147,30 +147,34 @@ document.addEventListener('DOMContentLoaded', function () {
     globalJobId = $('#jobId').html();
     //Checking if backend is running or not. If not, we will trigger system mail.
     $("#jobModal").modal('toggle');
-    showSpinner();
-    fetch("https://backend.profounditllc.com/actuator/health", {
-      method: "GET"
-    })
-      .then(json => {
-        console.log('backend is working fine');
-        hideSpinner();
-        setTimeout(function () {
-          $("#jobApplyModal").modal('toggle');
-          $('#job-apply-modal-title').html(globalJobTitle);
-          $('#job-apply-jobId').html(globalJobId);
-        }, 900);
-      }).catch(err => {
-        console.log('backend is not reachable or not working fine');
-        if (!window.navigator.onLine) {
-          showToast('#failureToast', 'No internet connection !');
-        }
-        hideSpinner();
-        showToast('#failureToast', 'Backend Server is down. Falling back to Native Mail Client.');
-        setTimeout(function () {
-          const mailSubject = 'Apply for ' + globalJobId + ': ' + globalJobTitle;
-          window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
-        }, 3000);
-      });
+    // showSpinner();
+    // fetch("https://backend.profounditllc.com/actuator/health", {
+    //   method: "GET"
+    // })
+    //   .then(json => {
+    //     console.log('backend is working fine');
+    //     hideSpinner();
+    //     setTimeout(function () {
+    //       $("#jobApplyModal").modal('toggle');
+    //       $('#job-apply-modal-title').html(globalJobTitle);
+    //       $('#job-apply-jobId').html(globalJobId);
+    //     }, 900);
+    //   }).catch(err => {
+    //     console.log('backend is not reachable or not working fine');
+    //     if (!window.navigator.onLine) {
+    //       showToast('#failureToast', 'No internet connection !');
+    //     }
+    //     hideSpinner();
+    //     showToast('#failureToast', 'Backend Server is down. Falling back to Native Mail Client.');
+    //     setTimeout(function () {
+    //       const mailSubject = 'Apply for ' + globalJobId + ': ' + globalJobTitle;
+    //       window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
+    //     }, 3000);
+    //   });
+    setTimeout(function () {
+      const mailSubject = 'Apply for ' + globalJobId + ': ' + globalJobTitle;
+      window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
+    }, 1000);
 
 
   });
