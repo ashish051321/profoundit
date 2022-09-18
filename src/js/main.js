@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(json => {
         console.log(json);
         hideSpinner();
-        showToast('#successToast', 'Application submitted !');
+        showToast('#successToast', 'Your application is submitted successfully. The HR Team will get in touch with you !');
       }).catch(err => {
         if (!window.navigator.onLine) {
           showToast('#failureToast', 'No internet connection !');
