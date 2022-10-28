@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#jobModal").modal('toggle');
     showSpinner();
     fetch("https://backend.profounditllc.com/actuator/health", {
+      mode: "no-cors",
       method: "GET"
     })
       .then(json => {
@@ -238,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     requestData.append('file', file);
     // POST request using fetch()
     fetch("https://backend.profounditllc.com/sendMailWithAttachments", {
+      mode: "no-cors",
 
       // Adding method type
       method: "POST",
