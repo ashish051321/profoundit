@@ -236,7 +236,8 @@ document.addEventListener('DOMContentLoaded', function () {
     requestData.append('file', file);
     // POST request using fetch()
     fetch("https://backend.profounditllc.com/sendMailWithAttachments", {
-      mode: "no-cors",
+      // mode: "no-cors",
+      "Access-Control-Allow-Origin": "*",
 
       // Adding method type
       method: "POST",
