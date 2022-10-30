@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  const maxFileSizeinMB = 5;
+  // this max file size is being controlled at the nginx service layer at the backend.
+  const maxFileSizeinMB = 2;
   // const win = window
   const doc = document.documentElement
 
@@ -101,11 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // $("#jobModal").on("hidden.bs.modal", function () {
-  //   modal.find('#jobDescription').empty();
-  //   modal.find('#jobResponsibilitiesList').empty();
-  //   modal.find('#jobDescription').empty();
-  // });
 
   $('#jobModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
@@ -179,12 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
           window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
         }, 3000);
       });
-    // setTimeout(function () {
-    //   const mailSubject = 'Apply for ' + globalJobId + ': ' + globalJobTitle;
-    //   window.open('mailto:recruiter@profounditllc.com?subject=' + mailSubject + '&body=<Please provide your basic details and attach CV>');
-    // }, 1000);
-
-
   });
 
   $("#modalJobSubmitButton").on("click", function (e) {
