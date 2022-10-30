@@ -75,8 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let openPositions = null;
 
   fetch('https://raw.githubusercontent.com/ashish051321/profoundit/master/openPositions.json')
-    .then(response => response.json())
-    .then(data => {
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Could not fetch the vacancies from the backend server !');
+      }
+      return response.json();
+    }).then(data => {
+      console.log(data);
       openPositions = data;
       console.log('Fetched open positions from github repo', openPositions);
       $("#vacancies").empty();
@@ -85,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
           '">' + jobObject.jobTitle +
           '</a>');
       });
+    }).catch(err => {
+      showToast('#failureToast', 'Could not fetch the vacancies from the backend. Please connect with IT Team');
     });
 
   window.scrollSmoothlyTo = function scrollSmoothlyTo(target) {
@@ -255,6 +262,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       .then(json => {
         console.log(json);
+        if (!json.ok) {
+          throw new Error('The application could not be submitted successfully.');
+        }
         hideSpinner();
         showToast('#successToast', 'Your application is submitted successfully. The HR Team will get in touch with you !');
       }).catch(err => {
