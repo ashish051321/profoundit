@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
       modal.find('#jobRequirements').empty();
     }
 
-    // modal.find('#modalApplyButton').attr('href', "mailto:careers@profounditllc.com?subject=Application for " + jobObject.jobTitle);
+    // modal.find('#modalApplyButton').attr('href', "mailto:admin@profounditllc.com?subject=Application for " + jobObject.jobTitle);
   });
 
 
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log(formObject);
     triggerEmailForJobApply({
-      "to": "careers@profounditllc.com,recruiter@profounditllc.com",
+      "to": "admin@profounditllc.com,recruiter@profounditllc.com",
       "subject": formObject['firstName'] + " " + formObject['lastName'] + ": Application for " + globalJobTitle + "( " + globalJobId + " )",
       "messageText": JSON.stringify({ formObject })
     }, document.getElementById("jobApplyForm").elements['fileAttachment'].files[0]);
